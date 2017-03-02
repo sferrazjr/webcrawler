@@ -26,7 +26,7 @@ public class CrawlerTests {
 
         boolean isReadable = crawlerImplementation.isUrlReadable(site.getURL());
 
-        site.setReadable(isReadable);
+        site.setSiteOfNews(isReadable);
 
     }
 
@@ -34,7 +34,7 @@ public class CrawlerTests {
     @Test
     public void Site_Should_Be_Readable(){
 
-        Assert.assertThat(site.isReadable(), is(true));
+        Assert.assertThat(site.isSiteOfNews(), is(true));
 
     }
 

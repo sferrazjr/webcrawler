@@ -4,18 +4,18 @@ public class Site {
 
 
     private String url;
-    private boolean readable;
+    private boolean siteOfNews;
 
     public Site(String url) {
         this.url = url;
     }
 
-    public void setReadable(boolean readable) {
-        this.readable = readable;
+    public void setSiteOfNews(boolean siteOfNews) {
+        this.siteOfNews = siteOfNews;
     }
 
-    public boolean isReadable() {
-        return readable;
+    public boolean isSiteOfNews() {
+        return siteOfNews;
     }
 
     public String getURL() {
