@@ -1,29 +1,21 @@
 package com.sergio.crawler.implementation;
 
 import com.sergio.crawler.http.HttpCallHandler;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
+import com.sergio.crawler.parser.ContentParser;
 
 public class CrawlerImplementation {
 
     private HttpCallHandler httpCallHandler = new HttpCallHandler();
+    private ContentParser contentParser = new ContentParser();
 
     public boolean isUrlReadable(String url){
 
         String webContent = httpCallHandler.handleHttpResponseBody(url);
 
-        boolean hasNewsInTheTitle = isContainsNewsInTheTitle(webContent);
+        boolean hasNewsInTheTitle = contentParser.isContainsNewsInTheTitle(webContent);
 
         return hasNewsInTheTitle;
 
-    }
-
-    private boolean isContainsNewsInTheTitle(String webContent) {
-        Document doc = Jsoup.parse(webContent);
-
-        String title = doc.title();
-
-        return title.toUpperCase().contains("NEWS");
     }
 
 

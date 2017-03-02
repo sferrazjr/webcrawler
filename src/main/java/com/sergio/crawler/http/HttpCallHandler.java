@@ -22,6 +22,10 @@ public class HttpCallHandler {
 
     public String handleHttpResponseBody(String url) {
 
+        if(!url.startsWith("http")){
+            url = "http://"+url;
+        }
+
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
         try {

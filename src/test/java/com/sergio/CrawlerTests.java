@@ -22,7 +22,7 @@ public class CrawlerTests {
     @Before
     public void setUp(){
 
-        site = new Site("http://www.bbc.co.uk/news");
+        site = new Site("www.bbc.co.uk/news");
 
         boolean isReadable = crawlerImplementation.isUrlReadable(site.getURL());
 
