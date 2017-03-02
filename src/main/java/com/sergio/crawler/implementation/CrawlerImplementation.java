@@ -1,15 +1,29 @@
 package com.sergio.crawler.implementation;
 
-/**
- * Created by sergio on 3/1/17.
- */
+import com.sergio.crawler.http.HttpCallHandler;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 public class CrawlerImplementation {
 
+    private HttpCallHandler httpCallHandler = new HttpCallHandler();
 
     public boolean isUrlReadable(String url){
 
-        return false;
+        String webContent = httpCallHandler.handleHttpResponseBody(url);
 
+        boolean hasNewsInTheTitle = isContainsNewsInTheTitle(webContent);
+
+        return hasNewsInTheTitle;
+
+    }
+
+    private boolean isContainsNewsInTheTitle(String webContent) {
+        Document doc = Jsoup.parse(webContent);
+
+        String title = doc.title();
+
+        return title.toUpperCase().contains("NEWS");
     }
 
 

@@ -1,17 +1,13 @@
 package com.sergio.crawler.domain;
 
-/**
- * Created by sergio on 3/1/17.
- */
 public class Site {
 
 
     private String url;
     private boolean readable;
-    private String URL;
 
     public Site(String url) {
-
+        this.url = url;
     }
 
     public void setReadable(boolean readable) {
@@ -23,6 +19,6 @@ public class Site {
     }
 
     public String getURL() {
-        return URL;
+        return url;
     }
 }
