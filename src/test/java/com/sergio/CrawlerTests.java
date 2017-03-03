@@ -24,7 +24,7 @@ public class CrawlerTests {
 
         site = new Site("www.bbc.co.uk/news");
 
-        boolean isReadable = crawlerImplementation.isUrlReadable(site.getURL());
+        boolean isReadable = crawlerImplementation.isUrlOfNewsSite(site.getURL());
 
         site.setSiteOfNews(isReadable);
 

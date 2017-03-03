@@ -21,4 +21,13 @@ public class Site {
     public String getURL() {
         return url;
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Site{");
+        sb.append("url='").append(url).append('\'');
+        sb.append(", siteOfNews=").append(siteOfNews);
+        sb.append('}');
+        return sb.toString();
+    }
 }

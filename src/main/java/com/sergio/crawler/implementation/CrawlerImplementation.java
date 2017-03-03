@@ -8,7 +8,7 @@ public class CrawlerImplementation {
     private HttpCallHandler httpCallHandler = new HttpCallHandler();
     private ContentParser contentParser = new ContentParser();
 
-    public boolean isUrlReadable(String url){
+    public boolean isUrlOfNewsSite(String url){
 
         String webContent = httpCallHandler.handleHttpResponseBody(url);
 
