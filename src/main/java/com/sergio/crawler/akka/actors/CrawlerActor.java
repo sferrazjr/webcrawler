@@ -7,12 +7,11 @@ import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import akka.japi.Creator;
 import com.sergio.crawler.domain.Site;
-import com.sergio.crawler.implementation.CrawlerImplementation;
+
 
 public class CrawlerActor extends UntypedActor {
 
     private LoggingAdapter log = Logging.getLogger(getContext().system(), this);
-    private CrawlerImplementation crawlerImplementation;
 
     @Override
     public void onReceive(Object message) throws Throwable {
@@ -20,14 +19,12 @@ public class CrawlerActor extends UntypedActor {
             Site site = (Site) message;
             log.info("Crawler received site {} ", site);
 
-            boolean isUrlOfNewsSite = crawlerImplementation.isUrlOfNewsSite(site.getURL());
-            site.setSiteOfNews(isUrlOfNewsSite);
+//            boolean isUrlOfNewsSite = (new CrawlerImplementation(site.getURL())).isUrlOfNewsSite();
 
-            log.info("isUrlOfNewsSite = {}", isUrlOfNewsSite);
+  //          site.setSiteOfNews(isUrlOfNewsSite);
 
-            log.info("getSender {} ", getSender());
+    //        log.info("isUrlOfNewsSite = {}", isUrlOfNewsSite);
 
-            getSender().tell(site, getSelf());
 
         } else {
             unhandled(message);
@@ -46,7 +43,4 @@ public class CrawlerActor extends UntypedActor {
     }
 
 
-    private CrawlerActor() {
-        crawlerImplementation = new CrawlerImplementation();
-    }
 }

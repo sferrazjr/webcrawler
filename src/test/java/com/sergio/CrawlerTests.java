@@ -1,42 +1,66 @@
 package com.sergio;
 
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sergio.crawler.Crawler;
 import com.sergio.crawler.domain.Site;
-
-import com.sergio.crawler.implementation.CrawlerImplementation;
-import org.junit.Assert;
-import org.junit.Before;
+import com.sergio.crawler.http.HttpCallHandlerFutureImpl;
+import com.sergio.crawler.implementation.SiteCrawlerImplementation;
 import org.junit.Test;
 
-import static org.hamcrest.core.Is.is;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.core.StringContains.containsString;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by sergio on 3/1/17.
  */
 public class CrawlerTests {
 
-    private Site site;
 
-    private CrawlerImplementation crawlerImplementation = new CrawlerImplementation();
+    SiteCrawlerImplementation siteCrawler = new SiteCrawlerImplementation();
 
-    @Before
-    public void setUp(){
-
-        site = new Site("www.bbc.co.uk/news");
-
-        boolean isReadable = crawlerImplementation.isUrlOfNewsSite(site.getURL());
-
-        site.setSiteOfNews(isReadable);
-
-    }
-
+    HttpCallHandlerFutureImpl callHandlerFuture = new HttpCallHandlerFutureImpl();
 
     @Test
     public void Site_Should_Be_Readable(){
 
-        Assert.assertThat(site.isSiteOfNews(), is(true));
+//        List<Site> sites = readJsonFileSite();
+//
+//        sites.forEach(
+//                site -> callHandlerFuture.myFuture(site.getURL())
+//        ) ;
 
     }
+
+
+
+    private static List<Site> readJsonFileSite() {
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        List<Site> sites = new ArrayList<>();
+
+        try {
+
+            sites = mapper.readValue( new File("/home/sergio/development/java-projects/webcrawler/src/test/resources/sites.json") , new TypeReference<List<Site>>(){});
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return sites;
+
+    }
+
 
 
 }
