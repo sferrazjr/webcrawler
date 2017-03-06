@@ -1,10 +1,18 @@
 package com.sergio.crawler.domain;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Site {
 
 
     private String url;
     private boolean siteOfNews;
+    private String errorMessage;
+
+    public Site() {
+    }
 
     public Site(String url) {
         this.url = url;
@@ -29,5 +37,9 @@ public class Site {
         sb.append(", siteOfNews=").append(siteOfNews);
         sb.append('}');
         return sb.toString();
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 }

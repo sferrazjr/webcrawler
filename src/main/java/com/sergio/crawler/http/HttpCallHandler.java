@@ -13,14 +13,10 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-/**
- * Created by sofa on 02/03/2017.
- */
-@Component
 public class HttpCallHandler {
 
 
-    public String handleHttpResponseBody(String url) {
+    public String handleHttpResponseBody(String url) throws IOException {
 
         if(!url.startsWith("http")){
             url = "http://"+url;
@@ -48,10 +44,6 @@ public class HttpCallHandler {
 
             };
             return httpclient.execute(httpget, responseHandler);
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         } finally {
             try {
                 httpclient.close();
@@ -59,8 +51,6 @@ public class HttpCallHandler {
                 e.printStackTrace();
             }
         }
-
-        return null;
 
     }
 }
