@@ -7,13 +7,14 @@ import com.sergio.crawler.domain.Site;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.protocol.HttpClientContext;
-import org.apache.http.impl.client.*;
+import org.apache.http.impl.client.FutureRequestExecutionService;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpRequestFutureTask;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -45,6 +46,8 @@ public class HttpCallHandlerFutureImpl {
 
         FutureRequestExecutionService futureRequestExecutionService = new FutureRequestExecutionService(httpClient, executorService);
 
+
+
         List<Site> sites = readJsonFileSite();
 
         List<HttpRequestFutureTask> futures = new ArrayList<>();
@@ -55,9 +58,23 @@ public class HttpCallHandlerFutureImpl {
 
         done = false;
 
-        while(!done) {
-            futures.forEach(future -> future.isDone());
+
+        executorService.isTerminated();
+
+        for (HttpRequestFutureTask future : futures) {
+            if(future.isDone()){
+
+                System.out.println( future.toString() );
+
+
+
+            }
         }
+        
+//        while(!done) {
+//
+//            futures.forEach(future -> future.isDone());
+//        }
 
         System.out.println("oink");
 
@@ -75,8 +92,8 @@ public class HttpCallHandlerFutureImpl {
         List<Site> sites = new ArrayList<>();
 
         try {
-
-            sites = mapper.readValue( new File("/home/sergio/development/java-projects/webcrawler/src/test/resources/sites.json") , new TypeReference<List<Site>>(){});
+            InputStream is = HttpCallHandlerFutureImpl.class.getClassLoader().getResourceAsStream("sites.json");
+            sites = mapper.readValue( is , new TypeReference<List<Site>>(){});
 
         } catch (IOException e) {
             e.printStackTrace();
